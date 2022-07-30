@@ -17,10 +17,7 @@ public class MyApplication extends Application {
         super.onCreate();
         MobileAds.initialize(
                 this,
-                new OnInitializationCompleteListener() {
-                    @Override
-                    public void onInitializationComplete(InitializationStatus initializationStatus) {
-                    }
+                initializationStatus -> {
                 });
         appOpenManager = new AppOpenManager(this);
     }

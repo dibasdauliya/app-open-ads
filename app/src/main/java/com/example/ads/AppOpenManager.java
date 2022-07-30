@@ -35,9 +35,6 @@ public class AppOpenManager implements LifecycleObserver, Application.ActivityLi
     private long loadTime = 0;
 
 
-    /**
-     * Constructor
-     */
     public AppOpenManager(MyApplication myApplication) {
         this.myApplication = myApplication;
         this.myApplication.registerActivityLifecycleCallbacks(this);
@@ -101,18 +98,31 @@ public class AppOpenManager implements LifecycleObserver, Application.ActivityLi
 
         loadCallback =
                 new AppOpenAd.AppOpenAdLoadCallback() {
+
                     @Override
-                    public void onAdLoaded(@NonNull AppOpenAd appOpenAd) {
-                        super.onAdLoaded(appOpenAd);
-                        AppOpenManager.this.appOpenAd = appOpenAd;
-                        AppOpenManager.this.loadTime = (new Date()).getTime();
+                    public void onAdLoaded(AppOpenAd ad) {
+                        AppOpenManager.this.appOpenAd = ad;
+                       AppOpenManager.this.loadTime = (new Date()).getTime();
                     }
 
                     @Override
-                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-                        super.onAdFailedToLoad(loadAdError);
+                    public void onAdFailedToLoad(LoadAdError loadAdError) {
+                        // Handle the error.
                         Log.d(LOG_TAG, "failed to load");
                     }
+
+//                    @Override
+//                    public void onAdLoaded(@NonNull AppOpenAd appOpenAd) {
+//                        super.onAdLoaded(appOpenAd);
+//                        AppOpenManager.this.appOpenAd = appOpenAd;
+//                        AppOpenManager.this.loadTime = (new Date()).getTime();
+//                    }
+//
+//                    @Override
+//                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+//                        super.onAdFailedToLoad(loadAdError);
+//                        Log.d(LOG_TAG, "failed to load");
+//                    }
 
                 };
         AdRequest request = getAdRequest();
